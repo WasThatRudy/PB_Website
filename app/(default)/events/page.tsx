@@ -1,19 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { auth } from "../../../Firebase";
-import { onAuthStateChanged } from "firebase/auth";
 import EventForm from "../../../components/EventForm";
 import EventUpdateForm from "../../../components/EventUpdateForm";
 import EventCard from "../../../components/EventCard";
 import Sidebar from "../../../components/Sidebar";
 import { useStore } from "@/lib/zustand/store";
 import LoadingBrackets from "@/components/ui/loading-brackets";
+import { apiFetch } from "@/lib/apiFetch";
 
 const EventsPage = () => {
   const [showForm, setShowForm] = useState(false);
-  const { isLoggedIn, setLoggedIn } = useStore();
+  const { isLoggedIn } = useStore();
   const [isLoading, setIsLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
   const [events, setEvents] = useState<
     {
       id: string;
@@ -42,22 +42,8 @@ const EventsPage = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      try {
-        if (user) {
-          setLoggedIn(true);
-        } else {
-          setLoggedIn(false);
-        }
-      } catch (error) {
-        console.log("Error getting document:", error);
-      }
-    });
-  }, [isLoggedIn]);
-
   const fetchEvents = async () => {
-    try{
+    try {
       setIsLoading(true);
       const resp = await fetch("/api/events");
       const data = await resp.json();
@@ -77,7 +63,7 @@ const EventsPage = () => {
   // Deleting an event
   const deleteEvent = async (eventId: string, event: any) => {
     try {
-      await fetch(`/api/events/?eventid=${eventId}`, {
+      await apiFetch(`/api/events/?eventid=${eventId}`, {
         method: "DELETE",
       });
       setEvents((prevEvents) =>
@@ -146,8 +132,8 @@ const EventsPage = () => {
         <div className="mt-2">
           {/* Future Events */}
           {futureEvents.length > 0 ? (
-            <div className="sm:flex flex-wrap justify-around gap-4 px-4">
-              {futureEvents.map((event) => (
+            <div className="sm:flex flex-wrap justify-center gap-4 px-4">
+              {futureEvents.slice().reverse().map((event) => (
                 <EventCard
                   key={event.id}
                   event={event}
@@ -168,8 +154,8 @@ const EventsPage = () => {
             Past Events
           </h2>
           {pastEvents.length > 0 ? (
-            <div className="sm:flex flex-wrap justify-around gap-4 px-4">
-              {pastEvents.map((event) => (
+            <div className="sm:flex flex-wrap justify-center gap-4 px-4">
+              {pastEvents.slice().reverse().map((event) => (
                 <EventCard
                   key={event.id}
                   event={event}

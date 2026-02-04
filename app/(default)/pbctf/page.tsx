@@ -1,10 +1,12 @@
 "use client";
 import PBCTFForm from "@/components/forms/pbctfForm";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { motion } from "framer-motion";
 
 const PBCTFRegisterPage = () => {
   return (
     <div className="min-h-screen mt-10 bg-black text-green-400 font-mono overflow-hidden">
+      {/*PBCTF content commented out for future use
       <div className="hidden" id="secret-agent-flag" data-flag="pbctf{pls_h4ck_m3_d4ddy}">
         🕵️‍♂️ CTF SECRET AGENT FLAG: pbctf&#123;pls_h4ck_m3_d4ddy&#125; 🕵️‍♂️
       </div>
@@ -24,8 +26,15 @@ const PBCTFRegisterPage = () => {
 ██║     ██████╔╝╚██████╗   ██║   ██║     
 ╚═╝     ╚═════╝  ╚═════╝   ╚═╝   ╚═╝     
 `}
-            
-          </pre>
+            </pre>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 2, delay: 1.3 }}
+              className="h-px bg-gradient-to-r from-transparent via-green-400 to-transparent mt-4"
+            />
+          </motion.div>
+
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: "100%" }}
@@ -49,12 +58,11 @@ const PBCTFRegisterPage = () => {
               <div className="text-2xl font-bold text-green-300">10AM to 5PM</div>
               <div className="text-sm text-gray-400">Competition Hours</div>
             </div>
-            <div>
-              <div className="text-2xl font-bold text-green-300">2nd August</div>
-              <div className="text-sm text-gray-400">Event Date</div>
+            <div className="p-6">
+              <PBCTFForm />
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -90,12 +98,14 @@ const PBCTFRegisterPage = () => {
             linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)
           `,
-          backgroundSize: '20px 20px'
-        }} />
+              backgroundSize: "20px 20px",
+            }}
+          />
+        </div>
       </div>
+      */}
     </div>
   );
 };
 
 export default PBCTFRegisterPage;
-

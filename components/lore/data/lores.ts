@@ -4,7 +4,7 @@ export const Lores: Lore[] = [
   {
     id: 'coorg',
     title: 'Escape to Coorg',
-    date: 'April 2025',
+    date: Date.UTC(2025,3),
     location: 'Coorg, Karnataka',
     preview: 'What did Point Blank do after submitting their GSoC proposals?',
     story: [ "Logically speaking, after grinding for 6 months straight, the only logical escape was in the middle of the mountains. What PB did was simple, Click on the submit button, book a bus and run straight to the middle of nowhere."
@@ -28,7 +28,7 @@ export const Lores: Lore[] = [
   {
     id: 'nitk',
     title: 'Victory at NITK',
-    date: 'January 2025',
+    date: Date.UTC(2025,0),
     location: 'Surathkal, Karnataka',
     preview: 'How Point Blank claimed their position at the biggest NIT in India',
     story: [ "Now the NITK Hackverse Hackathon is a big deal for Point Blank. Not only is it the biggest hackathon of the top NIT in India, the lore goes that their seniors had previously gone to this hackathon during their college days but were defeated. Hence, this battle was personal.",
@@ -52,7 +52,7 @@ export const Lores: Lore[] = [
   {
     id: 'trek',
     title: 'Shivagange Trek',
-    date: 'September 2024',
+    date: Date.UTC(2024,8),
     location: 'Shivagange, Karnataka',
     preview: 'Post SIH 2024 and IICT 2024, Point Blank deserved a break again.',
     story: [
@@ -71,5 +71,62 @@ export const Lores: Lore[] = [
       'https://res.cloudinary.com/pbsite/image/upload/v1746900660/IMG_3148_zz7m59.webp',
       'https://res.cloudinary.com/pbsite/image/upload/v1746900660/IMG_6438_lb7xud.webp',
     ]    
+  },
+  {
+    id: 'indiafoss2025',
+    title: 'IndiaFOSS',
+    date: Date.UTC(2025,8),
+    location: 'Nimhans Convention Centre, Karnataka',
+    preview: 'Point Blank got a front row seat to the magic of IndiaFOSS this year.',
+    story: [
+      "At FOSS United’s IndiaFOSS, Point Blank juniors had the incredible opportunity to volunteer and witness one of India’s largest tech conferences in action. From observing operations to connecting with open source leaders, the experience was eye-opening.",
+      "They met remarkable individuals like Dr. Kailash Nadh and Chad Whitacre, gaining insights that will shape their journey in open source and community building. Mentorship and inspiration were around every corner.",
+      "The weekend not only strengthened Point Blank’s vision of building impactful open source communities but also gave juniors a firsthand look at what it takes to organize high-impact tech events, sparking new ideas for the future.",
+    ],
+    images: [
+      'https://res.cloudinary.com/pbsite/image/upload/v1759431418/z0ygpwbrx7z8jjbywiil.jpg',
+      'https://res.cloudinary.com/pbsite/image/upload/v1759690042/qfgiqwxb1pg4jywjyadb.webp',
+      'https://res.cloudinary.com/pbsite/image/upload/v1759690213/tz4dypcdjxhun9xfjbgq.webp',
+      'https://res.cloudinary.com/pbsite/image/upload/v1759690240/ccky5yiw8e5lzpd6rvlz.webp'
+    ]    
+  },
+  {
+    id: "chad",
+    title: "Chad Whitacre on Open Source",
+    date: Date.UTC(2025,8),
+    location: "Dayananda Sagar College of Engineering",
+    preview: "Chad Whitacre, Head of Open Source at Sentry, shared his journey and insights on open source and its impact on tech.",
+    story: [
+      "Chad Whitacre, Head of Open Source at Sentry, gave an engaging talk on the value and evolution of open source. He introduced Sentry and described how he began as a software developer before diving deep into open-source work.",
+      "He explored how contributions are made, highlighted different types of licenses, and discussed how companies adopt open source while balancing community and business interests.",
+      "Chad also touched on the business aspects of open source, explaining sustainable funding models and how organizations can support maintainers. As a lighter example, he mentioned the Beerware License, a humorous license that simply says if you like the software, you can buy the author a beer.",
+      "He expressed admiration for young contributors, even students at Point Blank, engaging in open source early on, and emphasized how open source has grown into a foundational force in tech today."
+    ],
+    images: [
+      'https://res.cloudinary.com/pbsite/image/upload/v1759690703/fsnw2jtyhv1tudh9zqgv.webp',
+      'https://res.cloudinary.com/pbsite/image/upload/v1759690730/rn4dx1xvb4kbfwk1ffur.webp',
+      'https://res.cloudinary.com/pbsite/image/upload/v1759690782/ismvntrahstjggpqiqy7.webp'
+    ]
+  },
+  {
+    id: "Anthargange2025",
+    title: "Anthargange Trek",
+    date: Date.UTC(2025,10),
+    location: "Anthargange, Karnataka",
+    preview: "After getting selected for SIH, the teams headed to Anthargange for a trek to celebrate the milestone and reset before the real grind began",
+    story: [
+      "Fresh off our SIH selection, we planned a trek to Anthargange as a way to celebrate the win and take a breather from the intense preparation phase. It was a much-needed break after weeks of brainstorming, pitching, and late-night discussions.",
+      "The trek itself was challenging yet refreshing, pushing us physically while giving us space to disconnect from screens and deadlines. The climb, caves, and rocky paths made it a shared experience that brought the team closer together.",
+      "By the end of the trek, the sense of achievement from both SIH selection and completing Anthargange left us more motivated than ever, ready to return with renewed energy and focus for the next phase."
+    ],
+    images: [
+      'https://res.cloudinary.com/pbsite/image/upload/v1765734234/c1bvobwmipi2zjuy55t1.webp',
+      'https://res.cloudinary.com/pbsite/image/upload/v1765734315/sunmxsviorkgvqxmz32g.webp',
+      'https://res.cloudinary.com/pbsite/image/upload/v1765734841/fufeut6btms6wh1dzoqx.webp',
+      'https://res.cloudinary.com/pbsite/image/upload/v1765734874/sf6i9uffusybbjyptibe.webp'
+    ]
   }
-];
+].sort((i,j)=>{
+
+  return j.date - i.date
+});

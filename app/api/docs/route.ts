@@ -1,31 +1,16 @@
-import { db } from "@/Firebase";
-import { doc, getDoc } from "firebase/firestore";
 import { getApiDocs } from '@/lib/swagger';
 import { NextResponse } from 'next/server';
+import { requireAuth } from "@/lib/requireAuth";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function GET(request: Request) {
   try {
-    // Get the UID from the query parameters
-    const { searchParams } = new URL(request.url);
-    const uid = searchParams.get('uid');
-
-    if (!uid) {
+    const user = await requireAuth(request);
+    if (!user.user?.email) {
       return NextResponse.json(
-        { error: 'No user ID provided' },
-        { status: 401 }
-      );
-    }
-
-    // Check admin status
-    const adminDocRef = doc(db, "admin", uid);
-    const adminDocSnap = await getDoc(adminDocRef);
-
-    if (!adminDocSnap) {
-      return NextResponse.json(
-        { error: 'Access denied. Admin privileges required.' },
+        { error: "Access denied. Admin privileges required." },
         { status: 403 }
       );
     }

@@ -62,14 +62,14 @@ export default function LoreCard({
         className="cursor-pointer"
         onClick={onCardClick}
       >
-      <div className="flex flex-col md:flex-row gap-6 p-8">
-        <div className="bg-black rounded-2xl shadow-lg overflow-hidden p-4 max-w-2xl mx-auto" onClick={(e)=> e.stopPropagation()}>
+      <div className="flex flex-col md:flex-row gap-6 p-4 sm:p-8">
+        <div className="bg-black rounded-2xl shadow-lg overflow-hidden p-4 max-w-2xl h-fit mx-auto" onClick={(e)=> e.stopPropagation()}>
 
         <EmblaCarousel slides={Lore.images} options={{ loop: true }}/>
       </div>
 
           <div className="md:w-2/3">
-            <h2 className="text-5xl font-bold mb-4 text-[#00c853] group">
+            <h2 className="text-4xl xsm:text-5xl font-bold mb-4 text-[#00c853] group">
               <span className="relative inline-block">
                 {Lore.title}
               </span>
@@ -77,7 +77,12 @@ export default function LoreCard({
             <div className="flex flex-wrap items-center gap-6 text-gray-400 mb-4">
               <div className="flex items-center gap-2">
                 <Calendar className="w-5 h-5" />
-                <span>{Lore.date}</span>
+                <span>{new Date(Lore.date).toLocaleString(
+                  "en-IN",{
+                    month:"long",
+                    year:"numeric"
+                  }
+                )}</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-5 h-5" />

@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/Firebase";
 import "swagger-ui-react/swagger-ui.css";
 import { useStore } from "@/lib/zustand/store";
+import { apiFetch } from "@/lib/apiFetch";
 
 const SwaggerUI = dynamic(() => import("swagger-ui-react"), {
   ssr: false,
@@ -16,33 +15,9 @@ const SwaggerUI = dynamic(() => import("swagger-ui-react"), {
 });
 
 export default function ApiDoc() {
-  const { isLoggedIn, setLoggedIn } = useStore();
+  const { isLoggedIn } = useStore();
   const [isLoading, setIsLoading] = useState(true);
   const [swaggerConfig, setSwaggerConfig] = useState<any>(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const uid = user.uid;
-        try {
-          setLoggedIn(true);
-          // Get the API docs with the user's UID as a query parameter
-          const docsResp = await fetch(`/api/docs?uid=${uid}`);
-          if (docsResp.ok) {
-            const swaggerData = await docsResp.json();
-            setSwaggerConfig(swaggerData);
-          } else {
-            setLoggedIn(false);
-          }
-        } catch (error) {
-          console.log("Error getting document:", error);
-        }
-      }
-      setIsLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, [setLoggedIn]);
 
   if (isLoading) {
     return (

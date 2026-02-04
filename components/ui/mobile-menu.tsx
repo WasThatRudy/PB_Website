@@ -3,22 +3,21 @@
 import { useState, useRef, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
 import Link from 'next/link';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/Firebase';
-import { useStore } from "@/lib/zustand/store";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons'; 
-
+import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { useStore } from '@/lib/zustand/store';
 
 const mobileNavItems = [
-  { href: "https://github.com/pbdsce", label: "GitHub", isExternal: true, icon: faGithub },
-  { href: "/pbctf", label:"PBCTF"},
+  { href: "https://github.com/pointblank-club", label: "GitHub", isExternal: true, icon: faGithub },
+  // { href: "/recruitment", label: "Recruitment" },
   { href: "/events", label: "Events" },
   { href: "/leads", label: "Leads" },
   { href: "/lore", label: "Lore" },
   { href: "/members", label: "Members" },
   { href: "/achievements", label: "Achievements" },
-  { href: "/hustle", label: "Hustle Results" }
+  { href: "/talks", label: "Talks" },
+  { href: "/hustle", label: "Hustle Results" },
 ];
 export default function MobileMenu() {
   const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
@@ -26,24 +25,8 @@ export default function MobileMenu() {
 
   const trigger = useRef<HTMLButtonElement>(null);
   const mobileNav = useRef<HTMLDivElement>(null);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const { reset } = useStore();
-
-  const handleLogout = async () => {
-    
-    await auth.signOut();
-    setLoggedIn(false);
-    reset();
-    
-  }
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setLoggedIn(true);
-      }
-    });
-  });
+  const { isLoggedIn } = useStore();
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -71,7 +54,7 @@ export default function MobileMenu() {
   return (
     <div className="flex md:hidden">
       <button
-	ref={trigger}
+        ref={trigger}
         className="hamburger ml-5"
         aria-controls="mobile-nav"
         aria-expanded={mobileNavOpen ? "true" : "false"}
@@ -124,9 +107,9 @@ export default function MobileMenu() {
           <ul className="px-5 py-2">
             {mobileNavItems.map((item, index) => (
               <li key={item.href}>
-                <Link 
-                  href={item.href} 
-                  className="flex font-medium w-full text-gray-300 hover:text-white py-2 justify-center items-center" 
+                <Link
+                  href={item.href}
+                  className="flex font-medium w-full text-gray-300 hover:text-white py-2 justify-center items-center"
                   onClick={() => setMobileNavOpen(false)}
                   {...(item.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 >
@@ -140,9 +123,16 @@ export default function MobileMenu() {
                 Contact Us
               </Link>
             </li> */}
-            {loggedIn ? (
+            {isLoggedIn ? (
               <li>
-                <button onClick={handleLogout} className="flex font-medium w-full text-gray-300 hover:text-white py-2 justify-center" >
+                <button
+                  className="flex font-medium w-full text-gray-300 hover:text-white py-2 justify-center"
+                  onClick={() => {
+                    useStore.getState().setLoggedIn(false);
+                    localStorage.removeItem("admin_token");
+                    router.push("/admin/logout");
+                  }}
+                >
                   Logout
                 </button>
               </li>
